@@ -8,24 +8,7 @@ server {
     error_log   /var/log/nginx/domains/%domain%.error.log error;
 
     location / {
-	if ($host !~* ^www\.){
-            rewrite ^(.*)$ https://www.%domain%$1;
-        }
-
-        location ~* ^.+\.(jpeg|jpg|png|gif|bmp|ico|svg|css|js)$ {
-            expires     max;
-        }
-
-        location ~ [^/]\.php(/|$) {
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            if (!-f $document_root$fastcgi_script_name) {
-                return  404;
-            }
-
-            fastcgi_pass    %backend_lsnr%;
-            fastcgi_index   index.php;
-            include         /etc/nginx/fastcgi_params;
-        }
+         return 301 https://www.%domain%$request_uri;
     }
 
     error_page  403 /error/404.html;
