@@ -8,7 +8,7 @@ server {
     error_log   /var/log/nginx/domains/%domain%.error.log error;
 
     location / {
-		if ($host !~* ^www\.){
+	if ($host !~* ^www\.){
             rewrite ^(.*)$ https://www.%domain%$1;
         }
 
