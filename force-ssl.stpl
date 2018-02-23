@@ -12,6 +12,9 @@ server {
     ssl_certificate_key  %ssl_key%;
 
     location / {
+        if ($host !~* ^www\.){
+            rewrite ^(.*)$ https://www.%domain%$1;
+        }
 
         location ~* ^.+\.(jpeg|jpg|png|gif|bmp|ico|svg|css|js)$ {
             expires     max;
